@@ -12,125 +12,130 @@ Abigail Hernandez Contreras
 
 ## 1.1 Solucion Estratificada en TIC
 
-Es el enfoque de dividir la infraestructura tecnologica en capas logicas para aislar problemas, optimizar recursos y facilitar la gestion.
+Este modelo organiza los componentes de TI en niveles jerarquicos y separados. Su proposito es aislar procesos, simplificar la resolucion de fallos y mejorar el manejo de recursos.
 
-* **Hardware:** CPU, RAM, Almacenamiento fisico.
-* **Capa de Virtualizacion:** Abstraccion de los recursos.
-* **Sistema Operativo:** Gestion del entorno virtualizado.
-* **Aplicaciones:** Servicios y procesos ejecutados por el usuario final.
+* **Infraestructura Fisica:** Servidores, procesadores y unidades de almacenamiento base.
+* **Nivel de Abstraccion:** Hipervisores o motores de emulacion.
+* **Sistema Huesped:** Entorno operativo virtual independiente.
+* **Capa de Usuario:** Software y aplicaciones finales ejecutadas por el cliente.
 
 ---
 
 ## 1.1.a Virtualizacion por Interpretacion Pura
 
-El nivel mas basico y fundamental de la emulacion.
+El metodo de emulacion mas tradicional y estricto.
 
 --
 
 ### Descripcion
 
-El software de virtualizacion actua como un traductor en tiempo real. Toma cada instruccion del sistema invitado y la traduce individualmente a instrucciones que el procesador anfitrion pueda entender y ejecutar de forma secuencial.
+Funciona como un intermediario que lee las instrucciones del sistema virtualizado una por una y las convierte en comandos que la CPU fisica puede procesar en el momento.
 
 --
 
 ### Caracteristicas
 
-* **Aislamiento total:** El invitado no tiene contacto directo con el hardware subyacente.
-* **Alta sobrecarga (Overhead):** El proceso de traduccion constante consume altos niveles de procesamiento.
-* **Independencia de arquitectura:** Permite ejecutar codigo diseñado para un procesador distinto.
+* **Independencia de hardware:** Capacidad de correr software creado para arquitecturas incompatibles con la maquina fisica.
+* **Costo de procesamiento alto:** La traduccion continua exige demasiados recursos de la CPU, provocando lentitud.
+* **Desvinculacion completa:** El entorno virtual esta completamente aislado de los componentes fisicos reales.
 
 --
 
 ### Casos de Uso y Ejemplos
 
 **Casos de Uso:**
-* Desarrollo y pruebas de sistemas operativos experimentales.
-* Analisis forense y de malware en entornos controlados.
+* Investigacion de software antiguo o discontinuado.
+* Analisis de codigo malicioso en entornos completamente seguros.
+* Creacion de sistemas operativos desde cero.
 
 **Ejemplos:**
-* Bochs
-* QEMU (modo de emulacion pura)
+* QEMU (sin utilizar aceleradores KVM).
+* Bochs.
+* Emuladores de hardware retro o consolas clasicas.
 
 ---
 
 ## 1.1.b Virtualizacion por Recompilacion Dinamica
 
-Eficiencia a traves de la traduccion inteligente al vuelo.
+Optimizacion del rendimiento mediante traduccion inteligente en tiempo de ejecucion.
 
 --
 
 ### Descripcion
 
-En lugar de traducir instruccion por instruccion, el sistema analiza bloques de codigo enteros en tiempo de ejecucion, los traduce al lenguaje nativo del hardware anfitrion y los guarda en cache (JIT) para no volver a traducirlos en el futuro.
+El emulador toma segmentos completos de codigo, los traduce a las instrucciones nativas del procesador anfitrion y los almacena en una memoria cache. Asi, si el bloque de codigo se repite, se ejecuta instantaneamente sin volver a traducirse.
 
 --
 
 ### Caracteristicas
 
-* **Rendimiento superior:** Mucho mas rapido que la interpretacion pura gracias al uso de memoria cache.
-* **Optimizacion en tiempo real:** Adapta y mejora la ejecucion del codigo sobre la marcha.
-* **Mayor complejidad:** El desarrollo del motor de recompilacion es tecnicamente avanzado.
+* **Rapidez mejorada:** Supera ampliamente a la interpretacion debido a la reutilizacion de codigo guardado en la cache (JIT).
+* **Ajuste dinamico:** Optimiza el flujo de instrucciones mientras la aplicacion esta funcionando.
+* **Arquitectura compleja:** Requiere un diseño de software avanzado para predecir y traducir los bloques eficientemente.
 
 --
 
 ### Casos de Uso y Ejemplos
 
 **Casos de Uso:**
-* Emuladores modernos que requieren alto rendimiento.
-* Entornos de ejecucion como la Maquina Virtual de Java (JVM).
+* Capas de compatibilidad entre diferentes arquitecturas de CPU.
+* Maquinas virtuales de lenguajes de programacion.
+* Entornos de virtualizacion de escritorio.
 
 **Ejemplos:**
-* QEMU (motor TCG).
-* Rosetta 2 (Apple).
+* Rosetta 2 en ecosistemas macOS.
+* Motor TCG de QEMU.
+* Entornos de ejecucion como ART (Android Runtime) o la JVM.
 
 ---
 
 ## 1.1.c Virtualizacion por Hipervision (Bare Metal)
 
-El estandar de la industria empresarial para el maximo rendimiento.
+La base indiscutible de la infraestructura de nube y servidores empresariales.
 
 --
 
 ### Descripcion
 
-Conocido como Hipervisor Tipo 1. El software de virtualizacion se instala directamente sobre el hardware fisico, eliminando la necesidad de un sistema operativo anfitrion intermedio.
+Un hipervisor de Tipo 1 se despliega directamente sobre los componentes fisicos del servidor. No requiere de un sistema operativo base, ya que el mismo administra y distribuye los recursos de hardware hacia las multiples maquinas virtuales.
 
 --
 
 ### Caracteristicas
 
-* **Rendimiento casi nativo:** La latencia es minima y el uso de recursos es optimo.
-* **Alta seguridad y estabilidad:** Aislamiento robusto a nivel de hardware.
-* **Soporte de Hardware:** Requiere procesadores con instrucciones de virtualizacion nativas.
+* **Latencia minima:** Ejecucion sumamente cercana al nivel nativo del procesador, maximizando el rendimiento.
+* **Dependencia de hardware:** Necesita que la CPU tenga tecnologias de virtualizacion integradas de fabrica (Intel VT-x o AMD-V).
+* **Aislamiento robusto:** Provee alta seguridad al separar completamente las maquinas virtuales a nivel estructural.
 
 --
 
 ### Casos de Uso y Ejemplos
 
 **Casos de Uso:**
-* Centros de Datos Empresariales.
-* Proveedores de Cloud Computing (AWS, Azure, Google Cloud).
+* Implementacion de infraestructuras de Cloud Computing (IaaS).
+* Administracion de centros de datos corporativos.
+* Consolidacion masiva de servidores para ahorro de energia y espacio.
 
 **Ejemplos:**
-* VMware ESXi
-* Microsoft Hyper-V
-* Proxmox VE
+* VMware vSphere / ESXi.
+* Proxmox VE.
+* Microsoft Hyper-V Server.
 
 ---
 
-## Comparacion General
+## Comparacion de Modelos
 
-| Tecnologia | Rendimiento | Compatibilidad |
+| Tecnologia | Velocidad | Flexibilidad |
 | :--- | :--- | :--- |
-| Interpretacion Pura | Bajo | Muy Alta |
-| Recompilacion Dinamica | Medio - Alto | Alta |
-| Hipervision (Bare Metal) | Casi Nativo | Limitada al hardware base |
+| Interpretacion Pura | Muy Lenta | Extrema (Multi-plataforma) |
+| Recompilacion Dinamica | Aceptable a Rapida | Alta |
+| Hipervision (Bare Metal) | Rendimiento Optimo | Restringida a CPU compatible |
 
 ---
 
-## Conclusiones
+## Resumen Final
 
-* La eleccion del metodo de virtualizacion depende estrictamente del caso de uso.
-* La **Interpretacion** prioriza la compatibilidad sobre la velocidad.
-* La **Recompilacion** ofrece un balance intermedio para entornos de escritorio.
-* El **Bare Metal** es indiscutible para entornos de produccion empresarial.
+* Cada estrategia de virtualizacion resuelve un problema distinto en la industria TI.
+* La **Interpretacion** es ideal para garantizar compatibilidad absoluta y analisis a bajo nivel.
+* La **Recompilacion** brinda una solucion rapida para software de usuario y entornos de transicion de hardware.
+* La **Hipervision Bare Metal** es la columna vertebral tecnica para el procesamiento de datos y despliegues a nivel empresarial.
