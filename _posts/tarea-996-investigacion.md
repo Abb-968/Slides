@@ -7,7 +7,6 @@ permalink: /Tarea996/
 
 # Solucion Estratificada de Problemas en TIC
 Abigail Hernandez Contreras 
-230300968
 
 ---
 
