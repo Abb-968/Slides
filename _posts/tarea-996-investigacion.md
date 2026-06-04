@@ -12,54 +12,54 @@ permalink: /Tarea996/
 <section>
     <h2>1.1 Solucion Estratificada en TIC</h2>
     <p>
-        Es el enfoque de dividir la infraestructura tecnologica en capas logicas para aislar problemas, optimizar recursos y facilitar la gestion.
+        Este modelo organiza los componentes de TI en niveles jerarquicos y separados. Su proposito es aislar procesos, simplificar la resolucion de fallos y mejorar el manejo de recursos.
     </p>
     <ol>
-        <li><strong>Hardware:</strong> CPU, RAM, Almacenamiento fisico.</li>
-        <li><strong>Capa de Virtualizacion:</strong> Abstraccion de los recursos mediante hipervisores o emuladores.</li>
-        <li><strong>Sistema Operativo:</strong> Gestion del entorno virtualizado.</li>
-        <li><strong>Aplicaciones:</strong> Servicios y procesos ejecutados por el usuario final.</li>
+        <li><strong>Infraestructura Fisica:</strong> Servidores, procesadores y unidades de almacenamiento base.</li>
+        <li><strong>Nivel de Abstraccion:</strong> Hipervisores o motores de emulacion.</li>
+        <li><strong>Sistema Huesped:</strong> Entorno operativo virtual independiente.</li>
+        <li><strong>Capa de Usuario:</strong> Software y aplicaciones finales ejecutadas por el cliente.</li>
     </ol>
 </section>
 
 <section>
     <section>
         <h2>1.1.a Virtualizacion por Interpretacion Pura</h2>
-        <p>El nivel mas basico y fundamental de la emulacion.</p>
+        <p>El metodo de emulacion mas tradicional y estricto.</p>
         <p><em>↓ Usa la flecha abajo para profundizar</em></p>
     </section>
 
     <section>
         <h2>Descripcion</h2>
         <p>
-            El software de virtualizacion actua como un traductor en tiempo real. Toma cada instruccion del sistema invitado y la traduce individualmente a instrucciones que el procesador anfitrion pueda entender y ejecutar de forma secuencial.
+            Funciona como un intermediario que lee las instrucciones del sistema virtualizado una por una y las convierte en comandos que la CPU fisica puede procesar en el momento.
         </p>
     </section>
 
     <section>
         <h2>Caracteristicas</h2>
         <ul>
-            <li><strong>Aislamiento total:</strong> El invitado no tiene contacto directo con el hardware subyacente.</li>
-            <li><strong>Alta sobrecarga (Overhead):</strong> El proceso de traduccion constante consume altos niveles de procesamiento.</li>
-            <li><strong>Independencia de arquitectura:</strong> Permite ejecutar codigo diseñado para un procesador distinto (ej. software ARM en un procesador x86).</li>
+            <li><strong>Independencia de hardware:</strong> Capacidad de correr software creado para arquitecturas incompatibles con la maquina fisica.</li>
+            <li><strong>Costo de procesamiento alto:</strong> La traduccion continua exige demasiados recursos de la CPU, provocando lentitud.</li>
+            <li><strong>Desvinculacion completa:</strong> El entorno virtual esta completamente aislado de los componentes fisicos reales.</li>
         </ul>
     </section>
 
     <section>
         <h2>Casos de Uso</h2>
         <ul>
-            <li>Desarrollo y pruebas de sistemas operativos experimentales multiplataforma.</li>
-            <li>Analisis forense y de malware en entornos altamente controlados.</li>
-            <li>Ejecucion de software heredado (legacy) de arquitecturas obsoletas.</li>
+            <li>Investigacion de software antiguo o discontinuado.</li>
+            <li>Analisis de codigo malicioso en entornos completamente seguros.</li>
+            <li>Creacion de sistemas operativos desde cero.</li>
         </ul>
     </section>
 
     <section>
         <h2>Ejemplos</h2>
         <ul>
-            <li><strong>Bochs:</strong> Emulador de PC altamente portatil.</li>
-            <li><strong>QEMU:</strong> En su modo de emulacion pura sin aceleracion KVM.</li>
-            <li>Emuladores de consolas retro.</li>
+            <li><strong>QEMU:</strong> Sin utilizar aceleradores KVM.</li>
+            <li><strong>Bochs.</strong></li>
+            <li>Emuladores de hardware retro o consolas clasicas.</li>
         </ul>
     </section>
 </section>
@@ -67,41 +67,41 @@ permalink: /Tarea996/
 <section>
     <section>
         <h2>1.1.b Virtualizacion por Recompilacion Dinamica</h2>
-        <p>Eficiencia a traves de la traduccion inteligente al vuelo.</p>
+        <p>Optimizacion del rendimiento mediante traduccion inteligente en tiempo de ejecucion.</p>
         <p><em>↓ Usa la flecha abajo para profundizar</em></p>
     </section>
 
     <section>
         <h2>Descripcion</h2>
         <p>
-            En lugar de traducir instruccion por instruccion, el sistema analiza <strong>bloques de codigo</strong> enteros en tiempo de ejecucion, los traduce al lenguaje nativo del hardware anfitrion y los guarda en cache (JIT - Just-In-Time) para no volver a traducirlos en el futuro.
+            El emulador toma segmentos completos de codigo, los traduce a las instrucciones nativas del procesador anfitrion y los almacena en una memoria cache. Asi, si el bloque de codigo se repite, se ejecuta instantaneamente sin volver a traducirse.
         </p>
     </section>
 
     <section>
         <h2>Caracteristicas</h2>
         <ul>
-            <li><strong>Rendimiento superior:</strong> Mucho mas rapido que la interpretacion pura gracias al uso de memoria cache.</li>
-            <li><strong>Optimizacion en tiempo real:</strong> Adapta y mejora la ejecucion del codigo sobre la marcha.</li>
-            <li><strong>Mayor complejidad:</strong> El desarrollo del motor de recompilacion es tecnicamente avanzado.</li>
+            <li><strong>Rapidez mejorada:</strong> Supera ampliamente a la interpretacion debido a la reutilizacion de codigo guardado en la cache (JIT).</li>
+            <li><strong>Ajuste dinamico:</strong> Optimiza el flujo de instrucciones mientras la aplicacion esta funcionando.</li>
+            <li><strong>Arquitectura compleja:</strong> Requiere un desarrollo de software avanzado para predecir y traducir los bloques eficientemente.</li>
         </ul>
     </section>
 
     <section>
         <h2>Casos de Uso</h2>
         <ul>
-            <li>Emuladores modernos que requieren alto rendimiento y baja latencia.</li>
-            <li>Entornos de ejecucion como la Maquina Virtual de Java (JVM).</li>
-            <li>Virtualizacion de software en arquitecturas de transicion (ej. Rosetta 2).</li>
+            <li>Capas de compatibilidad entre diferentes arquitecturas de CPU.</li>
+            <li>Maquinas virtuales de lenguajes de programacion.</li>
+            <li>Entornos de virtualizacion de escritorio.</li>
         </ul>
     </section>
 
     <section>
         <h2>Ejemplos</h2>
         <ul>
-            <li><strong>QEMU:</strong> Utilizando su motor TCG (Tiny Code Generator).</li>
-            <li><strong>Rosetta 2</strong> (Apple).</li>
-            <li>Primeras versiones de <strong>VirtualPC</strong>.</li>
+            <li><strong>Rosetta 2</strong> en ecosistemas macOS.</li>
+            <li>Motor TCG de <strong>QEMU</strong>.</li>
+            <li>Entornos de ejecucion como ART (Android Runtime) o la JVM.</li>
         </ul>
     </section>
 </section>
@@ -109,82 +109,81 @@ permalink: /Tarea996/
 <section>
     <section>
         <h2>1.1.c Virtualizacion por Hipervision (Bare Metal)</h2>
-        <p>El estandar de la industria empresarial para el maximo rendimiento.</p>
+        <p>La base indiscutible de la infraestructura de nube y servidores empresariales.</p>
         <p><em>↓ Usa la flecha abajo para profundizar</em></p>
     </section>
 
     <section>
         <h2>Descripcion</h2>
         <p>
-            Conocido como Hipervisor Tipo 1. El software de virtualizacion se instala <strong>directamente sobre el hardware fisico</strong>, eliminando la necesidad de un sistema operativo anfitrion intermedio. El hipervisor gestiona los recursos de hardware directamente hacia las Maquinas Virtuales.
+            Un hipervisor de Tipo 1 se despliega directamente sobre los componentes fisicos del servidor. No requiere de un sistema operativo base, ya que el mismo administra y distribuye los recursos de hardware hacia las multiples maquinas virtuales.
         </p>
     </section>
 
     <section>
         <h2>Caracteristicas</h2>
         <ul>
-            <li><strong>Rendimiento casi nativo:</strong> Al no haber un SO intermedio, la latencia es minima y el uso de recursos es optimo.</li>
-            <li><strong>Alta seguridad y estabilidad:</strong> Menor superficie de ataque y aislamiento robusto a nivel de hardware.</li>
-            <li><strong>Soporte de Hardware:</strong> Requiere procesadores con instrucciones de virtualizacion nativas (Intel VT-x, AMD-V).</li>
+            <li><strong>Latencia minima:</strong> Ejecucion sumamente cercana al nivel nativo del procesador, maximizando el rendimiento.</li>
+            <li><strong>Dependencia de hardware:</strong> Necesita que la CPU tenga tecnologias de virtualizacion integradas de fabrica (Intel VT-x o AMD-V).</li>
+            <li><strong>Aislamiento robusto:</strong> Provee alta seguridad al separar completamente las maquinas virtuales a nivel estructural.</li>
         </ul>
     </section>
 
     <section>
         <h2>Casos de Uso</h2>
         <ul>
-            <li>Centros de Datos Empresariales (Data Centers).</li>
-            <li>Proveedores de Cloud Computing (IaaS como AWS, Azure, Google Cloud).</li>
-            <li>Consolidacion masiva de servidores corporativos.</li>
+            <li>Implementacion de infraestructuras de Cloud Computing (IaaS).</li>
+            <li>Administracion de centros de datos corporativos.</li>
+            <li>Consolidacion masiva de servidores para ahorro de energia y espacio.</li>
         </ul>
     </section>
 
     <section>
         <h2>Ejemplos</h2>
         <ul>
-            <li><strong>VMware ESXi.</strong></li>
-            <li><strong>Microsoft Hyper-V.</strong></li>
-            <li><strong>Proxmox VE</strong> (basado en KVM).</li>
-            <li><strong>XenServer.</strong></li>
+            <li><strong>VMware vSphere / ESXi.</strong></li>
+            <li><strong>Proxmox VE.</strong></li>
+            <li><strong>Microsoft Hyper-V Server.</strong></li>
         </ul>
     </section>
 </section>
 
 <section>
-    <h2>Comparacion General</h2>
+    <h2>Comparacion de Modelos</h2>
     <table>
         <thead>
             <tr>
                 <th>Tecnologia</th>
-                <th>Rendimiento</th>
-                <th>Compatibilidad</th>
+                <th>Velocidad</th>
+                <th>Flexibilidad</th>
             </tr>
         </thead>
         <tbody>
             <tr>
                 <td>Interpretacion Pura</td>
-                <td>Bajo</td>
-                <td>Muy Alta (Multi-arquitectura)</td>
+                <td>Muy Lenta</td>
+                <td>Extrema (Multi-plataforma)</td>
             </tr>
             <tr>
                 <td>Recompilacion Dinamica</td>
-                <td>Medio - Alto</td>
+                <td>Aceptable a Rapida</td>
                 <td>Alta</td>
             </tr>
             <tr>
                 <td>Hipervision (Bare Metal)</td>
-                <td>Casi Nativo</td>
-                <td>Limitada al hardware base</td>
+                <td>Rendimiento Optimo</td>
+                <td>Restringida a CPU compatible</td>
             </tr>
         </tbody>
     </table>
 </section>
 
 <section>
-    <h2>Conclusiones</h2>
+    <h2>Resumen Final</h2>
     <ul>
-        <li>La eleccion del metodo de virtualizacion depende estrictamente del caso de uso y los recursos disponibles.</li>
-        <li>La <strong>Interpretacion</strong> prioriza la compatibilidad y la investigacion sobre la velocidad.</li>
-        <li>La <strong>Recompilacion</strong> ofrece un balance intermedio para entornos de escritorio.</li>
-        <li>El <strong>Bare Metal</strong> es indiscutible para entornos de produccion empresarial y arquitecturas Cloud.</li>
+        <li>Cada estrategia de virtualizacion resuelve un problema distinto en la industria TI.</li>
+        <li>La <strong>Interpretacion</strong> es ideal para garantizar compatibilidad absoluta y analisis a bajo nivel.</li>
+        <li>La <strong>Recompilacion</strong> brinda una solucion rapida para software de usuario y entornos de transicion de hardware.</li>
+        <li>La <strong>Hipervision Bare Metal</strong> es la columna vertebral tecnica para el procesamiento de datos y despliegues a nivel empresarial.</li>
     </ul>
 </section>
